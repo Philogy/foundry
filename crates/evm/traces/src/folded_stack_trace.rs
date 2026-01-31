@@ -6,8 +6,7 @@ use revm_inspectors::tracing::{
 
 /// Builds a folded stack trace from a call trace arena.
 pub fn build(arena: &CallTraceArena, isolate: bool) -> Vec<String> {
-    let mut fst = EvmFoldedStackTraceBuilder::default();
-    fst.isolate = isolate;
+    let mut fst = EvmFoldedStackTraceBuilder { isolate, ..Default::default() };
     fst.process_call_node(arena.nodes(), 0);
     fst.build()
 }
